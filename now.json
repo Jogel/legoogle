@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "builds": [{ "src": "/api/index.js", "use": "@now/node" }],
+  "routes": [{ "src": "/api", "dest": "/api/index.js" }],
+  "env": {
+    "REBRICKABLE_API_KEY": "@rebrickable-api-key"
+  }
+}

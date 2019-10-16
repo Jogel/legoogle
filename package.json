@@ -1,0 +1,21 @@
+{
+  "name": "legoogle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "micro api/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-micro": "^2.9.5",
+    "graphql": "^14.5.8",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "micro": "^9.3.4",
+    "micro-dev": "^3.0.0"
+  }
+}
