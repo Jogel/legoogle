@@ -9,6 +9,7 @@
     "build": "next build"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "apollo-server-micro": "^2.9.5",
     "graphql": "^14.5.8",
     "graphql-request": "^1.8.2",
@@ -16,6 +17,7 @@
     "next": "^9.1.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-table": "^6.10.3",
     "swr": "^0.1.8"
   }
 }
