@@ -1,10 +1,10 @@
 const { ApolloServer, gql } = require('apollo-server-micro');
+
 const rebrickable = async url => {
-  const fetch = require('node-fetch');
+  const fetch = require('isomorphic-fetch');
   const fullurl = `https://rebrickable.com${url}`;
   const headers = {
-    // authorization: `key ${process.env.REBRICKABLE_API_KEY}`,
-    authorization: 'key 83c047d025095021e1d7accaea1e46d5',
+    authorization: `key ${process.env.REBRICKABLE_API_KEY}`,
     accept: 'application/json'
   };
   const res = await fetch(fullurl, { headers });
@@ -30,7 +30,6 @@ const typeDefs = gql`
     quantity: String
     numSets: String
     oldElementId: String
-
   }
 
   type Set {
@@ -68,22 +67,21 @@ const resolvers = {
     },
     allElementsBySet: async (root, args, context) => {
       const res2 = await rebrickable(`/api/v3/lego/sets/${args.setNum}`);
-        return {
-          set_num: res2.set_num,
-          name: res2.name,
-          year: res2.year
-        };
-    }
-    ,
+      return {
+        set_num: res2.set_num,
+        name: res2.name,
+        year: res2.year
+      };
+    },
     partInfo: async (root, args, context) => {
       const res3 = await rebrickable(`/api/v3/lego/parts/${args.partNum}`);
-        return {
-          partNum: res3.part_num,
-          name: res3.name,
-          year_from: res3.year_from,
-          year_to: res3.year_to,
-          oneElementId: (res3.part_img_url.match(/[0-9]/g) || []).join('') 
-        };
+      return {
+        partNum: res3.part_num,
+        name: res3.name,
+        year_from: res3.year_from,
+        year_to: res3.year_to,
+        oneElementId: (res3.part_img_url.match(/[0-9]/g) || []).join('')
+      };
     }
   },
   Element: {
@@ -110,7 +108,7 @@ const resolvers = {
           elementId: r.element_id,
           quantity: r.quantity,
           numSets: r.num_sets,
-          oldElementId: (r.part.part_img_url.match(/[0-9]/g) || []).join('')    
+          oldElementId: (r.part.part_img_url.match(/[0-9]/g) || []).join('')
         };
       });
     }
@@ -124,4 +122,11 @@ const server = new ApolloServer({
   playground: true
 });
 
-module.exports = server.createHandler({ path: '/api' });
+// https://github.com/zeit/next.js/blob/master/examples/api-routes-graphql/pages/api/graphql.js#L22
+export const config = {
+  api: {
+    bodyParser: false
+  }
+};
+
+export default server.createHandler({ path: '/api' });

@@ -4,18 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "micro api/index.js"
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "apollo-server-micro": "^2.9.5",
     "graphql": "^14.5.8",
-    "node-fetch": "^2.6.0"
-  },
-  "devDependencies": {
-    "micro": "^9.3.4",
-    "micro-dev": "^3.0.0"
+    "isomorphic-fetch": "^2.2.1",
+    "next": "^9.1.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   }
 }
