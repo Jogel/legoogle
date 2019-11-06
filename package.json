@@ -11,9 +11,11 @@
   "dependencies": {
     "apollo-server-micro": "^2.9.5",
     "graphql": "^14.5.8",
+    "graphql-request": "^1.8.2",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.1.2",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "swr": "^0.1.8"
   }
 }
