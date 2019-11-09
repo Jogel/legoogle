@@ -25,7 +25,7 @@ function SearchInput(props) {
 export default () => (
   <>
     <div>
-      {[`allSetsByElement`].map(query => (
+      {[`allSetsByElement`, `allElementsBySet`].map(query => (
         <SearchInput key={query} label={query} href={`/${query}`} />
       ))}
     </div>
