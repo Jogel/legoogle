@@ -113,6 +113,9 @@ const resolvers = {
       });
     }
   }
+
+  // /api/v3/lego/parts/{part_num}/colors/{color_id}/sets/
+  // z.B. GET /api/v3/lego/parts/{57893}/colors/{0}/sets/
 };
 
 const server = new ApolloServer({
