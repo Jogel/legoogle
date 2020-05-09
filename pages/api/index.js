@@ -47,10 +47,17 @@ const typeDefs = gql`
     oneElementId: String
   }
 
+  type PartColor {
+    year_from: String
+    year_to: String
+    elements: String
+  }
+
   type Query {
     allSetsByElement(elementId: String): Element
     allElementsBySet(setNum: String): Set
     partInfo(partNum: String): Part
+    partColorInfo(partNum: String, colorId: String ): PartColor
   }
 `;
 
@@ -81,6 +88,19 @@ const resolvers = {
         year_from: res3.year_from,
         year_to: res3.year_to,
         oneElementId: (res3.part_img_url.match(/[0-9]/g) || []).join('')
+      };
+    },
+    // /api/v3/lego/parts/{part_num}/colors/{color_id}/
+    partColorInfo: async (root, args, context) => {
+      const res4 = await rebrickable(`/api/v3/lego/parts/${args.partNum}/colors/${args.colorId}/`);
+      return {
+        // partNum: res4.part_num,
+        // name: res4.name,
+        year_from: res4.year_from,
+        year_to: res4.year_to,
+        elements: res4.elements.join()
+        // elements
+        // oneElementId: (res3.part_img_url.match(/[0-9]/g) || []).join('')
       };
     }
   },
@@ -113,7 +133,6 @@ const resolvers = {
       });
     }
   }
-
   // /api/v3/lego/parts/{part_num}/colors/{color_id}/sets/
   // z.B. GET /api/v3/lego/parts/{57893}/colors/{0}/sets/
 };
