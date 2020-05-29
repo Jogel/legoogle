@@ -45,6 +45,7 @@ const typeDefs = gql`
     year_from: String
     year_to: String
     oneElementId: String
+    res4: String
   }
 
   type PartColor {
@@ -82,12 +83,23 @@ const resolvers = {
     },
     partInfo: async (root, args, context) => {
       const res3 = await rebrickable(`/api/v3/lego/parts/${args.partNum}`);
+      const res4 = await rebrickable(`/api/v3/lego/parts/${args.partNum}/colors`);
+      // GET /api/v3/lego/parts/{part_num}/colors/
       return {
         partNum: res3.part_num,
         name: res3.name,
         year_from: res3.year_from,
         year_to: res3.year_to,
-        oneElementId: (res3.part_img_url.match(/[0-9]/g) || []).join('')
+        oneElementId: (res3.part_img_url.match(/[0-9]/g) || []).join(''),
+        res4: JSON.stringify(
+          res4.results.map(c => {
+            // https://rebrickable.com/api/v3/lego/parts/54091/colors/25/
+            return {
+              color_name: c.color_name,
+              color_id: c.color_id
+            }
+          }))
+        //  JSON.stringify(res4.results[0].color_name))
       };
     },
     // /api/v3/lego/parts/{part_num}/colors/{color_id}/
